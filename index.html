@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ProductManagement</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <div class="modal">
+    <form (ngSubmit)="onSubmit()" #productForm="ngForm">
+      <label for="productName">Product Name (required):</label>
+      <input type="text" id="productName" [(ngModel)]="product.name" name="productName" required>
+  
+      <label for="productDescription">Product Description:</label>
+      <input type="text" id="productDescription" [(ngModel)]="product.description" name="productDescription">
+  
+      <label for="productCategory">Product Category:</label>
+      <select id="productCategory" [(ngModel)]="product.categories" name="productCategory" multiple>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+  
+      <label for="availability">Availability:</label>
+      <input type="checkbox" id="availability" [(ngModel)]="product.availability.inStock" name="availability"> In Stock
+  
+      <label for="price">Price:</label>
+      <input type="number" id="price" [(ngModel)]="product.price" name="price">
+  
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" [(ngModel)]="product.availability.quantity" name="quantity">
+  
+      <label for="attributes">Attributes:</label>
+      <div *ngFor="let attribute of product.attributes; let i = index">
+        <input type="text" [(ngModel)]="attribute.key" name="attributeKey{{i}}" placeholder="Key">
+        <input type="text" [(ngModel)]="attribute.value" name="attributeValue{{i}}" placeholder="Value">
+        <button type="button" (click)="removeAttribute(i)">Remove</button>
+      </div>
+      <button type="button" (click)="addAttribute()">Add Attribute</button>
+  
+      <button type="submit">Save Product</button>
+    </form>
+  </div>
+  
+</body>
+</html>
